@@ -1,4 +1,4 @@
-﻿using DGJv3.InternalModule;
+﻿using DGJv3.NeteaseApi;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json.Linq;
 using System;
@@ -47,6 +47,8 @@ namespace DGJv3
 
         public UniversalCommand ClearBlacklistCommand { get; set; }
 
+        public UniversalCommand OpenNeteaseApiSetting { get; set; }
+
         public bool IsLogRedirectDanmaku { get; set; }
 
         public int LogDanmakuLengthLimit { get; set; }
@@ -93,6 +95,8 @@ namespace DGJv3
             }
         }
 
+        NeteaseApiWindow NeteaseApiWindow { get; set; }
+
         public DGJWindow(DGJMain dGJMain)
         {
             void addResource(string uri)
@@ -118,6 +122,8 @@ namespace DGJv3
             SearchModules = new SearchModules();
             DanmuHandler = new DanmuHandler(Songs, Player, Downloader, SearchModules, Blacklist);
             Writer = new Writer(Songs, Playlist, Player, DanmuHandler);
+
+            NeteaseApiWindow = new NeteaseApiWindow();
 
             Player.LogEvent += (sender, e) => { Log("播放:" + e.Message + (e.Exception == null ? string.Empty : e.Exception.Message)); };
             Downloader.LogEvent += (sender, e) => { Log("下载:" + e.Message + (e.Exception == null ? string.Empty : e.Exception.Message)); };
@@ -168,13 +174,19 @@ namespace DGJv3
                 Blacklist.Clear();
             });
 
+            OpenNeteaseApiSetting = new UniversalCommand((x) =>
+            {
+                NeteaseApiWindow.Show();
+                NeteaseApiWindow.Activate();
+            });
+
             InitializeComponent();
 
             ApplyConfig(Config.Load());
 
             PluginMain.ReceivedDanmaku += (sender, e) => { DanmuHandler.ProcessDanmu(e.Danmaku); };
-            PluginMain.Connected += (sender, e) => { LwlApiBaseModule.RoomId = e.roomid; };
-            PluginMain.Disconnected += (sender, e) => { LwlApiBaseModule.RoomId = 0; };
+
+            NeteaseApiWindow.OnLoginStatusChanged(MainConfig.Instance.LoginSession.LoginStatus);
         }
 
         /// <summary>
@@ -257,6 +269,8 @@ namespace DGJv3
         internal void DeInit()
         {
             Config.Write(GatherConfig());
+            MainConfig.Instance.SaveConfig();
+            NeteaseApiWindow?.UnbindEventsAndClose();
 
             Downloader.CancelDownload();
             Player.Next();

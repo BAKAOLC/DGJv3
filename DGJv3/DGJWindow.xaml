@@ -204,10 +204,13 @@
                 <StackPanel Orientation="Vertical" Margin="5" Grid.Row="2">
                     <ComboBox ItemsSource="{Binding SearchModules.Modules}" Margin="5" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           SelectedValue="{Binding SearchModules.PrimaryModule}" DisplayMemberPath="ModuleName"
-                          materialDesign:HintAssist.Hint="首选歌曲搜索引擎"/>
-                    <ComboBox ItemsSource="{Binding SearchModules.Modules}" Margin="5,0" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:HintAssist.Hint="首选歌曲搜索引擎" IsEnabled="False"/>
+                    <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding OpenNeteaseApiSetting}">
+                        打开网易云API设置
+                    </Button>
+                    <!--<ComboBox ItemsSource="{Binding SearchModules.Modules}" Margin="5,0" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           SelectedValue="{Binding SearchModules.SecondaryModule}" DisplayMemberPath="ModuleName"
-                          materialDesign:HintAssist.Hint="备用歌曲搜索引擎"/>
+                          materialDesign:HintAssist.Hint="备用歌曲搜索引擎"/>-->
                 </StackPanel>
             </Grid>
 

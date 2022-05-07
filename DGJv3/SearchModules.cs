@@ -1,8 +1,8 @@
-﻿using DGJv3.InternalModule;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace DGJv3
@@ -25,11 +25,7 @@ namespace DGJv3
             NullModule = new NullSearchModule();
             Modules.Add(NullModule);
 
-            Modules.Add(new LwlApiNetease());
-            Modules.Add(new LwlApiTencent());
-            Modules.Add(new LwlApiKugou());
-            Modules.Add(new LwlApiBaidu());
-            Modules.Add(new LwlApiXiami());
+            Modules.Add(new NeteaseApi.NeteaseMusicSearchModule());
 
             // TODO: 加载外置拓展
 
@@ -43,8 +39,8 @@ namespace DGJv3
                 m._log = logaction;
             }
 
-            PrimaryModule = Modules[1];
-            SecondaryModule = Modules[2];
+            PrimaryModule = Modules.FirstOrDefault();
+            SecondaryModule = Modules.Skip(1).FirstOrDefault();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

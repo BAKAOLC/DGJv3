@@ -25,16 +25,17 @@ namespace DGJv3
 
             PluginName = "点歌姬";
             PluginVer = BuildInfo.Version;
-            PluginDesc = "使用弹幕点播歌曲";
-            PluginAuth = "Genteure";
-            PluginCont = "dgj3@genteure.com";
-
+            PluginDesc = "使用弹幕点播歌曲 修正版本";
+            PluginAuth = "Genteure & 西井丶 & OLC";
+            PluginCont = "ritsukage@qq.com";
             try
             {
                 Directory.CreateDirectory(Utilities.DataDirectoryPath);
             }
             catch (Exception) { }
             window = new DGJWindow(this);
+
+            /*
             versionChecker = new VersionChecker("DGJv3");
             Task.Run(() =>
             {
@@ -55,6 +56,7 @@ namespace DGJv3
                     Log("版本检查出错：" + versionChecker?.LastException?.Message);
                 }
             });
+            */
         }
 
         public override void Admin()

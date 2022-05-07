@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DGJv3</RootNamespace>
-    <AssemblyName>DGJv3</AssemblyName>
+    <AssemblyName>点歌姬</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <DllExportIdent>A914D6F0-B0F3-48F4-9FF8-FB6E9D754BDD</DllExportIdent>
@@ -48,6 +49,9 @@
     <Reference Include="BilibiliDM_PluginFramework">
       <HintPath>.\BilibiliDM_PluginFramework.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="DllExport, PublicKeyToken=8337224c9ad9e356">
       <HintPath>$(SolutionDir)packages\DllExport.1.6.1\gcache\metalib\$(DllExportNamespace)\$(DllExportMetaLibName)</HintPath>
@@ -102,15 +106,16 @@
     <Compile Include="Downloader.cs" />
     <Compile Include="DownloadStatus.cs" />
     <Compile Include="EnumerationExtension.cs" />
+    <Compile Include="EnumToBooleanConverter.cs" />
     <Compile Include="FuckRegsvr32.cs" />
-    <Compile Include="InternalModule\LwlApiBaidu.cs" />
-    <Compile Include="InternalModule\LwlApiBaseModule.cs" />
-    <Compile Include="InternalModule\LwlApiKugou.cs" />
-    <Compile Include="InternalModule\LwlApiNetease.cs" />
-    <Compile Include="InternalModule\LwlApiTencent.cs" />
-    <Compile Include="InternalModule\LwlApiXiami.cs" />
+    <Compile Include="HttpClass.cs" />
     <Compile Include="LoginCenterAPIWarpper.cs" />
     <Compile Include="LyricChangedEvent.cs" />
+    <Compile Include="MainConfig.cs" />
+    <Compile Include="NeteaseApi.cs" />
+    <Compile Include="NeteaseApiWindow.xaml.cs">
+      <DependentUpon>NeteaseApiWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NullSearchModule.cs" />
     <Compile Include="PlayerVolumeConverter.cs" />
     <Compile Include="NotEqualsVisibilityConverter.cs" />
@@ -141,6 +146,10 @@
     <Page Include="DGJWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NeteaseApiWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
