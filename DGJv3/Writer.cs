@@ -37,6 +37,8 @@ namespace DGJv3
             Player = player;
             DanmuHandler = danmuHandler;
 
+            File.WriteAllText(Utilities.LyricOutputFilePath, string.Empty);
+
             PropertyChanged += Writer_PropertyChanged;
 
             Player.LyricEvent += Player_LyricEvent;
